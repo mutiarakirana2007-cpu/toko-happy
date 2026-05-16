@@ -611,6 +611,7 @@ function App() {
               memberCartCount={memberCartCount}
               navigateTo={navigateTo}
               setCheckoutForm={setCheckoutForm}
+              onRemoveCartItem={handleRemoveCartItem}
             />
           )}
           {page === "admin" && session?.role === "admin" && <AdminDashboardPage adminStats={adminStats} recentOrders={recentOrders} />}
