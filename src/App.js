@@ -525,7 +525,7 @@ function App() {
                       <div className="absolute right-0 top-14 z-30 w-[340px] rounded-[1.75rem] border border-slate-200 bg-white p-4 shadow-2xl">
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-500">Keranjang</p>
+                            <p className="text-sm font-semibold text-emerald-500">Keranjang</p>
                             <h3 className="mt-1 text-xl font-black text-slate-900">{memberCartCount} item dipilih</h3>
                           </div>
                           <button className="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-600" onClick={closeCart} type="button">

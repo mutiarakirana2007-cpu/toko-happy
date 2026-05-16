@@ -1,21 +1,9 @@
 import React from "react";
 
-function CheckoutPage({
-  checkoutForm,
-  setCheckoutForm,
-  handleCheckoutSubmit,
-  navigateTo,
-  cartItems,
-  memberCartCount,
-  cartTotalPrice,
-  formatCurrency,
-  onRemoveCartItem, // <-- Tambahkan prop ini untuk handle hapus item
-}) {
-  // JIKA KERANJANG KOSONG (0 ITEM)
+function CheckoutPage({ checkoutForm, setCheckoutForm, handleCheckoutSubmit, navigateTo, cartItems, memberCartCount, cartTotalPrice, formatCurrency, onRemoveCartItem }) {
   if (!cartItems || cartItems.length === 0 || memberCartCount === 0) {
     return (
       <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[2rem] bg-white p-12 text-center shadow-sm ring-1 ring-slate-200">
-        {/* Ikon Keranjang Silang */}
         <div className="relative mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-rose-50 text-rose-500">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-12 w-12">
             <path
@@ -24,7 +12,6 @@ function CheckoutPage({
               d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
             />
           </svg>
-          {/* Garis diagonal silang */}
           <div className="absolute h-14 w-1 rotate-45 rounded-full bg-rose-500"></div>
         </div>
 
@@ -38,13 +25,12 @@ function CheckoutPage({
     );
   }
 
-  // JIKA KERANJANG ADA ISINYA (TAMPILAN UTAMA)
   return (
     <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
       <section className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-500">Checkout Page</p>
+        <p className="text-sm font-semibold text-emerald-500">Checkout Page</p>
         <h1 className="mt-3 text-4xl font-black text-slate-900">Lengkapi data checkout member.</h1>
-        <p className="mt-3 max-w-2xl text-slate-600">Username mengikuti akun login member. Setelah checkout berhasil, transaksi akan selesai dan kamu diarahkan ke halaman about.</p>
+        <p className="mt-3 max-w-2xl text-slate-600">Lengkapi form dibawah ini. Setelah checkout berhasil, transaksi akan selesai dan segera kami proses.</p>
 
         <form className="mt-8 grid gap-5 md:grid-cols-2" onSubmit={handleCheckoutSubmit}>
           <div>
@@ -131,7 +117,7 @@ function CheckoutPage({
 
       <aside className="space-y-6">
         <section className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-500">Checkout List</p>
+          <p className="text-sm font-semibold text-emerald-500">Checkout List</p>
           <h2 className="mt-3 text-2xl font-black text-slate-900">Barang yang akan dibayar</h2>
 
           <div className="mt-6 space-y-4">
@@ -164,7 +150,7 @@ function CheckoutPage({
         </section>
 
         <section className="rounded-[2rem] bg-slate-900 p-8 text-white">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-300">Ringkasan</p>
+          <p className="text-sm font-semibold  tracking-[0.25em] text-emerald-300">Ringkasan</p>
           <div className="mt-5 flex items-center justify-between text-sm text-slate-300">
             <span>Total item</span>
             <span>{memberCartCount}</span>

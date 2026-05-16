@@ -35,7 +35,7 @@ function AdminDashboardPage({ adminStats, recentOrders }) {
     <div className="space-y-8">
       {/* HEADER */}
       <section className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-500">Dashboard</p>
+        <p className="text-sm font-semibold  tracking-[0.25em] text-emerald-500">Dashboard</p>
 
         <h1 className="mt-3 text-4xl font-black text-slate-900">Dashboard Toko Happy</h1>
 
@@ -68,7 +68,7 @@ function AdminDashboardPage({ adminStats, recentOrders }) {
         <article className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-500">Recent Orders</p>
+              <p className="text-sm font-semibold  tracking-[0.25em] text-emerald-500">Recent Orders</p>
 
               <h2 className="mt-3 text-3xl font-black text-slate-900">Pesanan terbaru</h2>
 
@@ -83,13 +83,13 @@ function AdminDashboardPage({ adminStats, recentOrders }) {
             <table className="min-w-full divide-y divide-slate-200">
               <thead className="bg-slate-100">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-black uppercase tracking-wider text-slate-600">Order ID</th>
+                  <th className="px-6 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Order ID</th>
 
-                  <th className="px-6 py-4 text-left text-xs font-black uppercase tracking-wider text-slate-600">Customer</th>
+                  <th className="px-6 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Customer</th>
 
-                  <th className="px-6 py-4 text-left text-xs font-black uppercase tracking-wider text-slate-600">Nomor Telepon</th>
+                  <th className="px-6 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Nomor Telepon</th>
 
-                  <th className="px-6 py-4 text-left text-xs font-black uppercase tracking-wider text-slate-600">Status</th>
+                  <th className="px-6 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Status</th>
                 </tr>
               </thead>
 

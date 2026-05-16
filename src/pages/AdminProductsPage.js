@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 function AdminProductsPage({
   loadProducts,
@@ -25,6 +25,33 @@ function AdminProductsPage({
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("latest");
+
+  // DELETE MODAL
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedDeleteProduct, setSelectedDeleteProduct] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // ALERT
+  const [alert, setAlert] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  // AUTO HIDE ALERT
+  useEffect(() => {
+    if (alert.show) {
+      const timeout = setTimeout(() => {
+        setAlert({
+          show: false,
+          message: "",
+          type: "success",
+        });
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [alert]);
 
   const filteredProducts = useMemo(() => {
     let filtered = [...adminProducts];
@@ -60,17 +87,69 @@ function AdminProductsPage({
     return filtered;
   }, [adminProducts, searchTerm, sortBy]);
 
+  // OPEN DELETE MODAL
+  const openDeleteModal = (product) => {
+    setSelectedDeleteProduct(product);
+    setDeleteModalOpen(true);
+  };
+
+  // CLOSE DELETE MODAL
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+    setSelectedDeleteProduct(null);
+  };
+
+  // CONFIRM DELETE
+  const confirmDeleteProduct = async () => {
+    if (!selectedDeleteProduct) return;
+
+    try {
+      setIsDeleting(true);
+
+      await handleDeleteProduct(selectedDeleteProduct.id);
+
+      closeDeleteModal();
+
+      setAlert({
+        show: true,
+        message: "Product berhasil dihapus!",
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        show: true,
+        message: "Gagal menghapus product.",
+        type: "error",
+      });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
+      {/* ALERT */}
+      {alert.show ? (
+        <div className="fixed right-5 top-5 z-[999]">
+          <div className={`animate-bounce-in rounded-2xl px-5 py-4 shadow-2xl ring-1 ${alert.type === "success" ? "bg-emerald-500 text-white ring-emerald-400" : "bg-rose-500 text-white ring-rose-400"}`}>
+            <div className="flex items-center gap-3">
+              <div className="text-xl">{alert.type === "success" ? "✅" : "❌"}</div>
+
+              <p className="font-semibold">{alert.message}</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       {/* HEADER */}
       <section className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-slate-200">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm font-semibold  text-emerald-500">Product List</p>
+            <p className="text-sm font-semibold text-emerald-500">Product List</p>
 
             <h1 className="mt-3 text-4xl font-black text-slate-900">Kelola product</h1>
 
-            <p className="mt-3 max-w-2xl text-slate-600">Halaman ini khusus admin untuk mendapatkan list products, menambah, mengubah, dan menghapus product.</p>
+            <p className="mt-3 max-w-2xl text-slate-600">Halaman ini untuk mengelola list products, menambah, mengubah, dan menghapus product.</p>
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -146,19 +225,19 @@ function AdminProductsPage({
             <table className="min-w-full divide-y divide-slate-200">
               <thead className="bg-slate-100">
                 <tr>
-                  <th className="px-4 py-4 text-left text-xs font-black  tracking-wider text-slate-600">ID</th>
+                  <th className="px-4 py-4 text-left text-xs font-black tracking-wider text-slate-600">ID</th>
 
-                  <th className="px-4 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Image</th>
+                  <th className="px-4 py-4 text-left text-xs font-black tracking-wider text-slate-600">Image</th>
 
-                  <th className="px-4 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Product</th>
+                  <th className="px-4 py-4 text-left text-xs font-black tracking-wider text-slate-600">Product</th>
 
-                  <th className="px-4 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Category</th>
+                  <th className="px-4 py-4 text-left text-xs font-black tracking-wider text-slate-600">Category</th>
 
-                  <th className="px-4 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Price</th>
+                  <th className="px-4 py-4 text-left text-xs font-black tracking-wider text-slate-600">Price</th>
 
-                  <th className="px-4 py-4 text-left text-xs font-black  tracking-wider text-slate-600">Description</th>
+                  <th className="px-4 py-4 text-left text-xs font-black tracking-wider text-slate-600">Description</th>
 
-                  <th className="px-4 py-4 text-center text-xs font-black  tracking-wider text-slate-600">Action</th>
+                  <th className="px-4 py-4 text-center text-xs font-black tracking-wider text-slate-600">Action</th>
                 </tr>
               </thead>
 
@@ -224,7 +303,7 @@ function AdminProductsPage({
                           Edit
                         </button>
 
-                        <button className="rounded-full bg-rose-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-rose-600" onClick={() => handleDeleteProduct(product.id)} type="button">
+                        <button className="rounded-full bg-rose-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-rose-600" onClick={() => openDeleteModal(product)} type="button">
                           Hapus
                         </button>
                       </div>
@@ -237,15 +316,15 @@ function AdminProductsPage({
         </article>
       </section>
 
-      {/* MODAL */}
+      {/* PRODUCT MODAL */}
       {isProductModalOpen ? (
-        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-950/50 backdrop-blur-sm">
+        <div className="fixed inset-0  bg-slate-950/50 backdrop-blur-sm">
           <div className="flex min-h-screen items-center justify-center p-4">
             <div className="w-full max-w-5xl rounded-[2rem] bg-white p-6 shadow-2xl ring-1 ring-slate-200 md:p-8">
               {/* HEADER */}
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-semibold  tracking-[0.25em] text-emerald-500">{editingProductId ? "Edit Product" : "Add Product"}</p>
+                  <p className="text-sm font-semibold text-emerald-500">{editingProductId ? "Edit Product" : "Add Product"}</p>
 
                   <h2 className="mt-2 text-3xl font-black text-slate-900">{editingProductId ? "Perbarui product" : "Tambah product baru"}</h2>
 
@@ -358,7 +437,7 @@ function AdminProductsPage({
 
                   <textarea
                     id="description"
-                    className="min-h-[180px] w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="min-h-[60px] w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-500"
                     onChange={(event) =>
                       setProductForm((current) => ({
                         ...current,
@@ -392,6 +471,41 @@ function AdminProductsPage({
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* DELETE MODAL */}
+      {deleteModalOpen ? (
+        <div className="fixed inset-0 bg-slate-950/50 backdrop-blur-sm">
+          <div className="flex min-h-screen items-center justify-center p-4">
+            <div className="w-full max-w-md rounded-[2rem] bg-white p-8 shadow-2xl ring-1 ring-slate-200">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-rose-100 text-4xl">🗑️</div>
+
+              <h2 className="mt-6 text-center text-3xl font-black text-slate-900">Hapus Product?</h2>
+
+              <p className="mt-4 text-center leading-7 text-slate-600">
+                Yakin ingin menghapus product
+                <span className="font-bold text-slate-900"> "{selectedDeleteProduct?.title}"</span>
+                ? <br />
+                Data yang dihapus tidak dapat dikembalikan.
+              </p>
+
+              <div className="mt-8 flex gap-3">
+                <button className="flex-1 rounded-full border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900" onClick={closeDeleteModal} type="button">
+                  Batal
+                </button>
+
+                <button
+                  className="flex-1 rounded-full bg-rose-500 px-5 py-3 font-semibold text-white transition hover:bg-rose-600 disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={isDeleting}
+                  onClick={confirmDeleteProduct}
+                  type="button"
+                >
+                  {isDeleting ? "Menghapus..." : "Ya, Hapus"}
+                </button>
+              </div>
             </div>
           </div>
         </div>

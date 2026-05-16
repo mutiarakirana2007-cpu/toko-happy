@@ -1,12 +1,9 @@
 function HomePage({ welcomeMessage, navigateTo }) {
   return (
     <div className="space-y-16">
-      {/* HERO */}
       <section className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        {/* LEFT */}
         <div className="space-y-6">
           <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700">✨ Toko Happy • Belanja simpel & nyaman</span>
-
           <div className="space-y-4">
             <h1 className="max-w-2xl text-4xl font-black leading-tight text-slate-900 md:text-6xl">Belanja kebutuhan favorit jadi lebih mudah di Toko Happy.</h1>
 
@@ -15,7 +12,6 @@ function HomePage({ welcomeMessage, navigateTo }) {
             </p>
           </div>
 
-          {/* BUTTON */}
           <div className="flex flex-wrap gap-4">
             <button className="rounded-full bg-emerald-500 px-6 py-3 font-semibold text-white transition hover:bg-emerald-600" onClick={() => navigateTo("products")} type="button">
               Lihat Produk
@@ -26,7 +22,6 @@ function HomePage({ welcomeMessage, navigateTo }) {
             </button>
           </div>
 
-          {/* STATS */}
           <div className="grid gap-4 sm:grid-cols-3">
             {[
               {
@@ -56,14 +51,12 @@ function HomePage({ welcomeMessage, navigateTo }) {
           </div>
         </div>
 
-        {/* RIGHT */}
         <div className="relative overflow-hidden rounded-[2rem] bg-slate-900 p-8 text-white shadow-2xl">
           <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-400/30 blur-2xl" />
 
           <div className="absolute -bottom-12 left-0 h-40 w-40 rounded-full bg-amber-300/20 blur-2xl" />
 
           <div className="relative space-y-6">
-            {/* PROMO */}
             <div className="flex items-center justify-between rounded-3xl bg-white/10 p-4 backdrop-blur">
               <div>
                 <p className="text-sm text-slate-300">Promo spesial minggu ini</p>
@@ -74,7 +67,6 @@ function HomePage({ welcomeMessage, navigateTo }) {
               <span className="rounded-full bg-white/15 px-4 py-2 text-sm">🎉 Promo</span>
             </div>
 
-            {/* CARD */}
             <div className="rounded-[1.75rem] bg-white p-6 text-slate-900">
               <p className="text-md font-semibold text-emerald-500">Produk favorit</p>
 
@@ -95,7 +87,6 @@ function HomePage({ welcomeMessage, navigateTo }) {
               </div>
             </div>
 
-            {/* SMALL INFO */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-3xl bg-emerald-500 p-5">
                 <p className="text-sm text-emerald-100">Untuk member baru</p>
@@ -113,7 +104,6 @@ function HomePage({ welcomeMessage, navigateTo }) {
         </div>
       </section>
 
-      {/* FEATURES */}
       <section className="grid gap-6 lg:grid-cols-3">
         {[
           {
@@ -124,12 +114,12 @@ function HomePage({ welcomeMessage, navigateTo }) {
           {
             icon: "💸",
             title: "Harga Bersahabat",
-            text: "Belanja jadi lebih tenang dengan harga yang ramah dan promo menarik untuk pelanggan.",
+            text: "Belanja jadi lebih tenang dengan harga yang ramah dan berbagai promo menarik setiap minggu.",
           },
           {
             icon: "🚚",
             title: "Proses Lebih Praktis",
-            text: "Mulai dari memilih produk sampai checkout dibuat lebih sederhana dan mudah digunakan.",
+            text: "Mulai dari memilih produk sampai checkout dengan mudah, antar barang gratis jabodetabek!",
           },
         ].map((item) => (
           <article key={item.title} className="rounded-[1.75rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-lg">

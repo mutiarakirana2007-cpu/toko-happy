@@ -5,8 +5,8 @@ function ProductsPage({ storefrontProducts, memberCartCount, storefrontError, st
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-semibold text-emerald-50/90">Product Page</p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Belanja produk Toko Happy dengan nuansa marketplace yang cepat dan praktis.</h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-emerald-50/90">Semua product ditarik langsung dari API. Member bisa menambahkan product ke keranjang langsung dari grid belanja.</p>
+            <h1 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Belanja produk unggulan terbaru di Toko Happy.</h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-emerald-50/90">Lihat semua produk available</p>
           </div>
         </div>
       </section>
@@ -15,7 +15,7 @@ function ProductsPage({ storefrontProducts, memberCartCount, storefrontError, st
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="text-2xl font-black text-slate-900">Pilihan Product</h2>
-            <p className="mt-2 text-sm text-slate-500">Explore product terbaru dengan layout grid ala e-commerce.</p>
+            <p className="mt-2 text-sm text-slate-500">Explore berbagai product terbaru</p>
           </div>
           <button className="rounded-full border border-emerald-200 bg-emerald-50 px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100" onClick={loadStorefrontProducts} type="button">
             Refresh Product
